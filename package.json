@@ -1,0 +1,80 @@
+{
+  "name": "template-electron-app",
+  "productName": "Template Electron App",
+  "version": "1.0.0",
+  "description": "Template Electron App",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx electron . --no-user-gesture-required",
+    "gen-signkey": "npx electron-builder create-self-signed-cert --publisher=%publisher%",
+    "pack-self": "npx electron-builder --dir",
+    "dist-self": "npx electron-builder",
+    "pack-win32x64": "set CSC_LINK=file://C:/Users/gavin/Certificates/LettuceManStudios.pfx && npx electron-builder --windows --dir",
+    "dist-win32x64": "set CSC_LINK=file://C:/Users/gavin/Certificates/LettuceManStudios.pfx && npx electron-builder --windows"
+  },
+  "build": {
+    "appId": "templateelectronapp.gavinhsmith.app",
+    "copyright": "Copyright (c) 2020 ${author} All Rights Reserved",
+    "mac": {
+      "category": "public.app-category.adventure-games",
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "category": "Games",
+      "desktop": {
+        "name": "Template Electron App",
+        "icon": "./build/png",
+        "comment": "Template Electron App"
+      },
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "./build/png"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavinhsmith/Template-Electron-App.git"
+  },
+  "keywords": [
+    "Electron",
+    "LettuceManStudios"
+  ],
+  "author": "LettuceMan Studios",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gavinhsmith/Template-Electron-App/issues"
+  },
+  "homepage": "https://github.com/gavinhsmith/Template-Electron-App#readme",
+  "devDependencies": {
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}
