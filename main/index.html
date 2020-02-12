@@ -3,8 +3,51 @@
   <head>
     <meta charset="utf-8">
     <title>Un-Named Platformer Level Editor</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/fonts/NotoSansV2/css/font.css">
+    <link rel="stylesheet" href="css/master.css">
+
+    <!-- Libraries -->
+    <script src="lib/rs.js" charset="utf-8"></script>
+    <script src="lib/sprite.js" charset="utf-8"></script>
+    <script src="lib/sound.js" charset="utf-8"></script>
+
+    <!-- Classes -->
+    <script src="class/2DArray.js" charset="utf-8"></script>
+    <script src="class/Map.js" charset="utf-8"></script>
   </head>
   <body>
-    <h1>Un-Named Platformer Level Editor</h1>
+    <div class="leveldisplaycont center">
+      <canvas class="leveldisplay" id="lvlmapdis" width="300" height="300"></canvas>
+    </div>
+    <div class="lvlinfcont">
+      <div class="levelinfo">
+        <h3 id="lvlnamedis">Current Level: None</h3>
+        Current Layer: <select id="lvllayer">
+          <option value="coli">Collison</option>
+          <option value="back">Sprites: Background</option>
+          <option value="fore">Sprites: Foreground</option>
+        </select><br>
+        Editor Scale: <input type="number" id="editscale" value="100" min="20" max="400">
+        <!---->
+        <br><br><h3>Edit Tile</h3>
+        X: <input type="number" min="0" id="editqx" value="0" class="numint"> | Y: <input min="0" type="number" id="editqy" value="0" class="numint"><br>
+        <span id="edittileval">Value of Tile: </span><br>
+        Set value: <input id="edittilevalset" class="numint" type="text"></input>
+        <!---->
+        <br><br><button type="button" onclick="createLevel();" id="newlvlbtn">New Level</button>
+        <!---->
+        <br><br><div class="credit">Font (Noto Sans V2) made from<br><a href="http://www.onlinewebfonts.com">Online Web Fonts</a> is licensed by CC BY 3.0</div>
+      </div>
+      <button class="hidelvlinf" type="button" id="hidelvlinf"><<<</button>
+    </div>
+
+    <!-- Main Scripts -->
+    <script src="js/vars.js" charset="utf-8"></script>
+    <script src="js/assets.js" charset="utf-8"></script>
+    <script src="js/eventlistener.js" charset="utf-8"></script>
+    <script src="js/elements.js" charset="utf-8"></script>
+    <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>
