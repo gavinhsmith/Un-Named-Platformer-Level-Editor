@@ -9,7 +9,17 @@ const DArray = class extends Array {
     };
     if (preset != undefined) {
       for (var i in preset) {
-        this.setItem(preset[i].x,preset[i].y,preset[i].val);
+        if (preset[i].type == 'single') {
+          this.setItem(preset[i].x,preset[i].y,preset[i].val);
+        } else if (preset[i].type == 'fill') {
+          var width = (preset[i].endX+1) - preset[i].startX;
+          var height = (preset[i].endY+1) - preset[i].startY;
+          for (var b = 0; b < height; b++) {
+            for (var k = 0; k < width; k++) {
+              this.setItem(preset[i].startX+k,preset[i].startY+b,preset[i].val);
+            };
+          };
+        };
       };
     };
   }

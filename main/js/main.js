@@ -53,21 +53,21 @@ function drawMap(map) {
             ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
           };
           if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.draw(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
           };
           if (map.coli[i][k] == 2) {
             var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.draw(ctx,trect.x,trect.y,trect.width,trect.height*2);
+            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
           };
           break;
         case BACK:
           ASSETS.SPRITES.LEVEL.THEME.GROUND[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
           if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.draw(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
+            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
           };
           if (map.coli[i][k] == 2) {
             var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.draw(ctx,trect.x,trect.y,trect.width,trect.height*2);
+            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
           };
           if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
             ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
@@ -76,14 +76,14 @@ function drawMap(map) {
         case FORE:
           ASSETS.SPRITES.LEVEL.THEME.GROUND[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
           if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.draw(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
+            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
+          };
+          if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
+            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
           };
           if (map.coli[i][k] == 2) {
             var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.draw(ctx,trect.x,trect.y,trect.width,trect.height*2);
-          };
-          if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
+            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
           };
           if (map.sfore[i][k] != 0 && map.sfore[i][k] != 8) {
             ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
@@ -165,6 +165,46 @@ function update() {
     };
   };
   drawMap(CURRENT_MAP);
+};
+
+/*
+LEVELS[0] = new Level( // LVL1 (20x10)
+  'Basic Level Test',
+  'ground',
+  LEVELMAPS[0],
+  FORESPRITEMAPS[0],
+  BACKSPRITEMAPS[0],
+  GRIDSIZE
+);
+*/
+
+function exportLevelDisplay() {
+  if (CURRENT_MAP != null) {
+    exportcode.innerHTML = '';
+    var lines = [];
+    lines[0]   = `LEVELMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.coli)}");`;
+    lines[1]   = `BACKSPRITEMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.sback)}");`;
+    lines[2]   = `FORESPRITEMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.sfore)}");`;
+    lines[3]   = '';
+    lines[4]   = `LEVELS[ID] = new Level(`;
+    lines[5]   = `  '${CURRENT_MAP.name}',`;
+    lines[6]   = `  'ground',`;
+    lines[7]   = `  LEVELMAPS[ID],`;
+    lines[8]   = `  FORESPRITEMAPS[ID],`;
+    lines[9]   = `  BACKSPRITEMAPS[ID],`;
+    lines[10]  = `  GRIDSIZE,`;
+    lines[11]  = `);`;
+    //
+    for (var i in lines) {
+      if (i == 0) {
+        exportcode.innerHTML += lines[i];
+      } else {
+        exportcode.innerHTML += '<br>'+lines[i];
+      };
+    };
+    //
+    exportlevel.classList.remove('hidden');
+  };
 };
 
 setInterval(update,1000/30);

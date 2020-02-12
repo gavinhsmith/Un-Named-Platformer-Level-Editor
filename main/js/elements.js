@@ -7,6 +7,8 @@ const editscale = document.querySelector('#editscale');
 const edittilevalset = document.querySelector('#edittilevalset'); //editqx editqy
 const editqx = document.querySelector('#editqx');
 const editqy = document.querySelector('#editqy');
+const exportlevel = document.querySelector('.exportlevel');
+const exportcode = document.querySelector('#exportcode');
 
 lvlnamedis.setName = function (name) {
   this.innerHTML = "Current Level: "+name;

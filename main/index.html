@@ -36,11 +36,18 @@
         <span id="edittileval">Value of Tile: </span><br>
         Set value: <input id="edittilevalset" class="numint" type="text"></input>
         <!---->
-        <br><br><button type="button" onclick="createLevel();" id="newlvlbtn">New Level</button>
+        <br><br><button type="button" onclick="createLevel();" id="newlvlbtn">New Level</button><button type="button" onclick="exportLevelDisplay();" id="newlvlbtn">Export</button>
         <!---->
         <br><br><div class="credit">Font (Noto Sans V2) made from<br><a href="http://www.onlinewebfonts.com">Online Web Fonts</a> is licensed by CC BY 3.0</div>
       </div>
       <button class="hidelvlinf" type="button" id="hidelvlinf"><<<</button>
+    </div>
+
+    <div class="exportlevel hidden center">
+      <h3>Export Level</h3>
+      <span>To export the level, copy this code to a JavaScript file, and replace <code>ID</code> with the level ID number.</span><br>
+      <br><div class="code" id="exportcode"></div><br>
+      <button type="button" onclick="exportlevel.classList.add('hidden');" name="button">Close</button>
     </div>
 
     <!-- Main Scripts -->

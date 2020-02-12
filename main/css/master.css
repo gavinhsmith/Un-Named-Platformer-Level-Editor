@@ -6,6 +6,19 @@
 body {
   background: white;
 }
+.exportlevel {
+  background: white;
+  padding: 10px;
+  border: 1px solid black;
+  width: 600px;
+}
+code, .code {
+  padding: 3px;
+  border-radius: 4px;
+  background: #d0d0d0;
+  white-space: pre;
+  overflow-x: scroll;
+}
 .leveldisplaycont {
   overflow: auto;
   max-width: 100vw;
@@ -16,6 +29,9 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
+}
+.hidden {
+  display: none;
 }
 .numint {
   width: 50px;
