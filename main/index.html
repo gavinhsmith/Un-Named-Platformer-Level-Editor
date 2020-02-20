@@ -16,6 +16,7 @@
     <!-- Classes -->
     <script src="class/2DArray.js" charset="utf-8"></script>
     <script src="class/Map.js" charset="utf-8"></script>
+    <script src="class/Mouse.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="leveldisplaycont center">
@@ -32,7 +33,7 @@
         Editor Scale: <input type="number" id="editscale" value="100" min="20" max="400">
         <!---->
         <br><br><h3>Edit Tile</h3>
-        X: <input type="number" min="0" id="editqx" value="0" class="numint"> | Y: <input min="0" type="number" id="editqy" value="0" class="numint"><br>
+        <div style="display: none;">X: <input type="number" min="0" id="editqx" value="0" class="numint"> | Y: <input min="0" type="number" id="editqy" value="0" class="numint"><br></div>
         <span id="edittileval">Value of Tile: </span><br>
         Set value: <input id="edittilevalset" class="numint" type="text"></input>
         <!---->

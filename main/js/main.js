@@ -1,4 +1,5 @@
 const ctx = c.getContext('2d');
+const mouse = new Mouse(c);
 
 ctx.clearAll = function () {
   this.clearRect(0,0,c.width,c.height);
@@ -20,12 +21,31 @@ function loadMap(map) {
   c.width = map.width*GRID_SIZE;
   c.height = map.height*GRID_SIZE;
   rsjs(c,"full",{margin_width:10,margin_height:10},SCALE);
+  CANX = c.getBoundingClientRect().x;
+  CANY = c.getBoundingClientRect().y;
+};
+
+function getMouseTile() {
+  var x = mouse.x - CANX;
+  var y = mouse.y - CANY;
+  x = Math.floor(x/(c.getBoundingClientRect().width/CURRENT_MAP.width));
+  y = Math.floor(y/(c.getBoundingClientRect().height/CURRENT_MAP.height));
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x >= CURRENT_MAP.width) x = CURRENT_MAP.width-1;
+  if (y >= CURRENT_MAP.height) y = CURRENT_MAP.height-1;
+  return {x:x,y:y};
 };
 
 function changeScale(scale) {
   SCALE = scale;
   rsjs(c,"full",{margin_width:10,margin_height:10},SCALE);
+  CANX = c.getBoundingClientRect().x;
+  CANY = c.getBoundingClientRect().y;
 };
+
+CANX = c.getBoundingClientRect().x;
+CANY = c.getBoundingClientRect().y;
 
 function tileRect(x,y) {
   return {
@@ -104,8 +124,8 @@ function drawMap(map) {
     };
   };
   ctx.save();
-  var selx = document.querySelector('#editqx').value;
-  var sely = document.querySelector('#editqy').value;
+  var selx = getMouseTile().x;
+  var sely = getMouseTile().y;
 
   var selrect = tileRect(selx,sely);
 
@@ -150,6 +170,9 @@ function update() {
     if (sely < 0) sely = 0;
     if (selx >= CURRENT_MAP.width) selx = CURRENT_MAP.width-1;
     if (sely >= CURRENT_MAP.height) sely = CURRENT_MAP.height-1;
+    MOUSE_TILE = getMouseTile();
+    selx = MOUSE_TILE.x;
+    sely = MOUSE_TILE.y;
     switch (CURRENT_LAYER) {
       case COLI:
         document.querySelector('#edittileval').innerHTML = `Value of Tile: ${CURRENT_MAP.coli[sely][selx]}`;
@@ -165,6 +188,24 @@ function update() {
     };
   };
   drawMap(CURRENT_MAP);
+  if (mouse.active) {
+    var value = edittilevalset.value;
+    if (value != NaN && CURRENT_MAP != null) {
+      switch (CURRENT_LAYER) {
+        case COLI:
+          CURRENT_MAP.coli[MOUSE_TILE.y][MOUSE_TILE.x] = value;
+          break;
+        case BACK:
+          CURRENT_MAP.sback[MOUSE_TILE.y][MOUSE_TILE.x] = value;
+          break;
+        case FORE:
+          CURRENT_MAP.sfore[MOUSE_TILE.y][MOUSE_TILE.x] = value;
+          break;
+        default:
+          break;
+      }
+    };
+  };
 };
 
 /*

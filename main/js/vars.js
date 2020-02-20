@@ -5,4 +5,7 @@ const     GRID_SIZE         = 50,
 
 let       CURRENT_MAP       = null,
           CURRENT_LAYER     = COLI,
-          SCALE             = 1;
+          SCALE             = 1,
+          CANX              = 0,
+          CANY              = 0,
+          MOUSE_TILE        = {x:0,y:0};

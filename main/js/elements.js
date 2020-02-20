@@ -66,23 +66,3 @@ editscale.on('change',function (e) {
 });
 
 edittilevalset.on = edittilevalset.addEventListener;
-
-edittilevalset.on("change",function (e) {
-  var value = Number(e.target.value);
-  this.value = "";
-  if (value != NaN && CURRENT_MAP != null) {
-    switch (CURRENT_LAYER) {
-      case COLI:
-        CURRENT_MAP.coli[editqy.value][editqx.value] = value;
-        break;
-      case BACK:
-        CURRENT_MAP.sback[editqy.value][editqx.value] = value;
-        break;
-      case FORE:
-        CURRENT_MAP.sfore[editqy.value][editqx.value] = value;
-        break;
-      default:
-        break;
-    }
-  };
-});
