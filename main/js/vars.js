@@ -4,5 +4,5 @@ const     GRID_SIZE         = 50,
           FORE              = 2;
 
 let       CURRENT_MAP       = null,
-          CURRENT_LAYER     = COLI;
+          CURRENT_LAYER     = COLI,
           SCALE             = 1;
