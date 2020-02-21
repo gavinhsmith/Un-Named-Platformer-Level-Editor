@@ -56,71 +56,87 @@ function tileRect(x,y) {
   };
 };
 
+function checkIfTileVis(x,y) {
+  function checkIfRectOverlap(r1,r2) {
+    return r1.x < r2.x + r2.width
+    && r2.x < r1.x + r1.width
+    && r1.y < r2.y + r2.height
+    && r2.y < r1.y + r1.height;
+  };
+  var winRect = {
+    x: 0,
+    y: 0,
+    width: window.innerWidth,
+    height: window.innerHeight
+  };
+  var ctile = tile;
+  ctile.x += CANX;
+  ctile.y += CANY;
+  ctile.x = Math.floor(ctile.x/(c.getBoundingClientRect().width/CURRENT_MAP.width));
+  ctile.y = Math.floor(ctile.y/(c.getBoundingClientRect().height/CURRENT_MAP.height));
+  return ;
+};
+
 function drawMap(map) {
   if (map == null) return;
   for (var i = 0; i < map.height; i++) {
     for (var k = 0; k < map.width; k++) {
-      ctx.save();
       var rect = tileRect(k,i);
-      //ASSETS.SPRITES.EMPTY.draw(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.25});
-      switch (CURRENT_LAYER) {
-        case COLI:
-          ASSETS.SPRITES.LEVEL.THEME.GROUND[38].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
-          };
-          if (map.sfore[i][k] != 0 && map.sfore[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
-          };
-          if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          };
-          if (map.coli[i][k] == 2) {
-            var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
-          };
-          break;
-        case BACK:
-          ASSETS.SPRITES.LEVEL.THEME.GROUND[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
-          };
-          if (map.coli[i][k] == 2) {
-            var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
-          };
-          if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          };
-          break;
-        case FORE:
-          ASSETS.SPRITES.LEVEL.THEME.GROUND[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          if (map.coli[i][k] == 1) {
-            ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
-          };
-          if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          };
-          if (map.coli[i][k] == 2) {
-            var trect = tileRect(k,i-1)
-            ASSETS.SPRITES.PLAYER.COVER.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
-          };
-          if (map.sfore[i][k] != 0 && map.sfore[i][k] != 8) {
-            ASSETS.SPRITES.LEVEL.THEME.GROUND[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
-          };
-          break;
-        default:
-          break;
-      };
+      if (true) {
+        ctx.save();
+        //ASSETS.SPRITES.EMPTY.draw(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.25});
+        switch (CURRENT_LAYER) {
+          case COLI:
+            map.sprites()[38].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
+              map.sprites()[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
+            };
+            if (map.sfore[i][k] != 0 && map.sfore[i][k] != 8) {
+              map.sprites()[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.5});
+            };
+            if (map.coli[i][k] == 1) {
+              ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            };
+            break;
+          case BACK:
+            map.sprites()[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            if (map.coli[i][k] == 1) {
+              ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
+            };
+            if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
+              map.sprites()[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            };
+            break;
+          case FORE:
+            map.sprites()[0].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            if (map.coli[i][k] == 1) {
+              ASSETS.SPRITES.EMPTY.update(ctx,rect.x,rect.y,rect.width,rect.height,{opacity:0.49});
+            };
+            if (map.sback[i][k] != 0 && map.sback[i][k] != 8) {
+              map.sprites()[map.sback[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            };
+            if (map.sfore[i][k] != 0 && map.sfore[i][k] != 8) {
+              map.sprites()[map.sfore[i][k]].update(ctx,rect.x,rect.y,rect.width,rect.height,undefined);
+            };
+            break;
+          default:
+            break;
+        };
 
-      ctx.beginPath();
-      ctx.strokeStyle = '#44f';
-      ctx.lineWidth = 2;
-      ctx.globalAlpha = 0.1;
-      ctx.rect(rect.x,rect.y,rect.width,rect.height);
-      ctx.stroke();
-      ctx.closePath();
-      ctx.restore();
+        if (map.coli[i][k] == 2) {
+          var trect = tileRect(k,i-1)
+          ASSETS.SPRITES.PLAYER.STILL_RIGHT.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
+        };
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#44f';
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.1;
+        ctx.rect(rect.x,rect.y,rect.width,rect.height);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+      };
     };
   };
   ctx.save();
@@ -160,6 +176,8 @@ function createLevelFin() {
 function update() {
   ctx.clearAll();
   if (CURRENT_MAP != null) {
+    CANX = c.getBoundingClientRect().x;
+    CANY = c.getBoundingClientRect().y;
     document.querySelector('#editqx').max = CURRENT_MAP.width-1;
     document.querySelector('#editqy').max = CURRENT_MAP.height-1;
     var selx = Number(document.querySelector('#editqx').value);
@@ -189,7 +207,8 @@ function update() {
   };
   drawMap(CURRENT_MAP);
   if (mouse.active) {
-    var value = edittilevalset.value;
+    var value = Number(edittilevalset.value);
+    if (typeof value == NaN) value = 0;
     if (value != NaN && CURRENT_MAP != null) {
       switch (CURRENT_LAYER) {
         case COLI:
@@ -223,16 +242,16 @@ function exportLevelDisplay() {
   if (CURRENT_MAP != null) {
     exportcode.innerHTML = '';
     var lines = [];
-    lines[0]   = `LEVELMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.coli)}");`;
-    lines[1]   = `BACKSPRITEMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.sback)}");`;
-    lines[2]   = `FORESPRITEMAPS[ID] = JSON.parse("${JSON.stringify(CURRENT_MAP.sfore)}");`;
+    lines[0]   = `LEVELMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.coli)}");`;
+    lines[1]   = `BACKSPRITEMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.sback)}");`;
+    lines[2]   = `FORESPRITEMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.sfore)}");`;
     lines[3]   = '';
-    lines[4]   = `LEVELS[ID] = new Level(`;
+    lines[4]   = `LEVELS[${CURRENT_LEVEL_ID}] = new Level(`;
     lines[5]   = `  '${CURRENT_MAP.name}',`;
-    lines[6]   = `  'ground',`;
-    lines[7]   = `  LEVELMAPS[ID],`;
-    lines[8]   = `  FORESPRITEMAPS[ID],`;
-    lines[9]   = `  BACKSPRITEMAPS[ID],`;
+    lines[6]   = `  '${CURRENT_LEVEL_TYPE}',`;
+    lines[7]   = `  LEVELMAPS[${CURRENT_LEVEL_ID}],`;
+    lines[8]   = `  FORESPRITEMAPS[${CURRENT_LEVEL_ID}],`;
+    lines[9]   = `  BACKSPRITEMAPS[${CURRENT_LEVEL_ID}],`;
     lines[10]  = `  GRIDSIZE,`;
     lines[11]  = `);`;
     //

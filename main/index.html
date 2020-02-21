@@ -25,12 +25,17 @@
     <div class="lvlinfcont">
       <div class="levelinfo">
         <h3 id="lvlnamedis">Current Level: None</h3>
+        Level ID: <input class="numint" type="number" id="lvlid" value="0" min="0"></input><br>
         Current Layer: <select id="lvllayer">
           <option value="coli">Collison</option>
           <option value="back">Sprites: Background</option>
           <option value="fore">Sprites: Foreground</option>
         </select><br>
-        Editor Scale: <input type="number" id="editscale" value="100" min="20" max="400">
+        Theme: <select id="lvltype">
+          <option value="ground">Ground</option>
+          <option value="cave">Cave</option>
+        </select><br>
+        Editor Scale: <input type="number" id="editscale" value="100">
         <!---->
         <br><br><h3>Edit Tile</h3>
         <div style="display: none;">X: <input type="number" min="0" id="editqx" value="0" class="numint"> | Y: <input min="0" type="number" id="editqy" value="0" class="numint"><br></div>
