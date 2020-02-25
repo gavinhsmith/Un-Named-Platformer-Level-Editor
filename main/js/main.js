@@ -12,6 +12,19 @@ ctx.fillAll = function (color) {
   this.restore();
 };
 
+function selectTile() {
+  var cont = document.createElement('div');
+  cont.classList.add('seltilecont');
+  cont.classList.add('lvlpopupcont');
+  cont.classList.add('center');
+
+  cont.innerHTML = '<h2>Select Tile</h2><div id="lvltileselcont"></div><!----><button type="button" onclick="document.querySelector(\'.seltilecont\').parentElement.removeChild(document.querySelector(\'.seltilecont\'));" id="canseltilebtn">Cancel</button>';
+
+  var lvltileselcont = document.querySelector('lvltileselcont');
+
+  document.body.appendChild(cont);
+};
+
 rsjs(c,"full",{margin_width:10,margin_height:10},SCALE);
 
 function loadMap(map) {
@@ -155,6 +168,7 @@ function drawMap(map) {
 function createLevel() {
   var cont = document.createElement('div');
   cont.classList.add('newlvlcont');
+  cont.classList.add('lvlpopupcont');
   cont.classList.add('center');
 
   cont.innerHTML = '<h2>Create New Level</h2><br>Name: <input type="text" placeholder="Deep Dark Caves" id="newlvlname"></input><br>Width: <input id="newlvlwidth" type="number" min="20" max="200" value="20"><br>Height: <input id="newlvlheight" type="number" min="10" max="100" value="10"><br><br><button onclick="createLevelFin();">Create</button><button type="button" onclick="document.querySelector(\'.newlvlcont\').parentElement.removeChild(document.querySelector(\'.newlvlcont\'));" id="newlvlbtn">Cancel</button>';

@@ -11,6 +11,7 @@ const exportlevel = document.querySelector('.exportlevel');
 const exportcode = document.querySelector('#exportcode');
 const lvltype = document.querySelector('#lvltype');
 const lvlid = document.querySelector('#lvlid');
+const lvltileselbtn = document.querySelector('#lvltileselbtn');
 
 CURRENT_LEVEL_ID = lvlid.value;
 
@@ -88,4 +89,10 @@ lvlid.on('change',function (e) {
   var val = Number(this.value);
   if (val == NaN) val = 0;
   CURRENT_LEVEL_ID = val;
+});
+
+lvltileselbtn.on = lvltileselbtn.addEventListener;
+
+lvltileselbtn.addEventListener('click',function (e) {
+  selectTile();
 });

@@ -5,7 +5,8 @@ const     GRID_SIZE         = 50,
 
 let       CURRENT_MAP       = null,
           CURRENT_LAYER     = COLI,
-          CURRENT_LEVEL_TYPE= 'ground';
+          CURRENT_LEVEL_TYPE= 'ground',
+          CURRENT_TILE_SEL  = 0,
           SCALE             = 1,
           CANX              = 0,
           CANY              = 0,

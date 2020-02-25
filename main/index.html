@@ -26,20 +26,24 @@
       <div class="levelinfo">
         <h3 id="lvlnamedis">Current Level: None</h3>
         Level ID: <input class="numint" type="number" id="lvlid" value="0" min="0"></input><br>
+        <!---->
         Current Layer: <select id="lvllayer">
           <option value="coli">Collison</option>
           <option value="back">Sprites: Background</option>
           <option value="fore">Sprites: Foreground</option>
         </select><br>
+        <!---->
         Theme: <select id="lvltype">
           <option value="ground">Ground</option>
           <option value="cave">Cave</option>
         </select><br>
+        <!---->
         Editor Scale: <input type="number" id="editscale" value="100">
         <!---->
         <br><br><h3>Edit Tile</h3>
         <div style="display: none;">X: <input type="number" min="0" id="editqx" value="0" class="numint"> | Y: <input min="0" type="number" id="editqy" value="0" class="numint"><br></div>
-        <span id="edittileval">Value of Tile: </span><br>
+        <span id="edittileval">Value of Tile: </span><br><br>
+        Tile Brush: <button type="button" id="lvltileselbtn">Select Tile</button><br>
         Set value: <input id="edittilevalset" class="numint" type="text"></input>
         <!---->
         <br><br><button type="button" onclick="createLevel();" id="newlvlbtn">New Level</button><button type="button" onclick="exportLevelDisplay();" id="newlvlbtn">Export</button>
@@ -49,9 +53,9 @@
       <button class="hidelvlinf" type="button" id="hidelvlinf"><<<</button>
     </div>
 
-    <div class="exportlevel hidden center">
+    <div class="exportlevel lvlpopupcont hidden center">
       <h3>Export Level</h3>
-      <span>To export the level, copy this code to a JavaScript file, and replace <code>ID</code> with the level ID number.</span><br>
+      <span>To export the level copy this code to a JavaScript file.</span><br>
       <br><div class="code" id="exportcode"></div><br>
       <button type="button" onclick="exportlevel.classList.add('hidden');" name="button">Close</button>
     </div>
