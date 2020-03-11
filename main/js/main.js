@@ -136,11 +136,6 @@ function drawMap(map) {
             break;
         };
 
-        if (map.coli[i][k] == 2) {
-          var trect = tileRect(k,i-1)
-          ASSETS.SPRITES.PLAYER.STILL_RIGHT.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
-        };
-
         ctx.beginPath();
         ctx.strokeStyle = '#44f';
         ctx.lineWidth = 2;
@@ -153,6 +148,25 @@ function drawMap(map) {
     };
   };
   ctx.save();
+
+  for (var i = 0; i < map.height; i++) {
+    for (var k = 0; k < map.width; k++) {
+      if (map.coli[i][k] == 3) {
+        var rect = tileRect(k,i);
+        ASSETS.SPRITES.END_GATE.update(ctx,rect.x-(rect.width/2)-(rect.width/4),rect.y-(rect.height*1.5),rect.width*2.5,rect.height*2.5,undefined);
+      };
+    };
+  };
+
+  for (var i = 0; i < map.height; i++) {
+    for (var k = 0; k < map.width; k++) {
+      if (map.coli[i][k] == 2) {
+        var trect = tileRect(k,i-1)
+        ASSETS.SPRITES.PLAYER.STILL_RIGHT.update(ctx,trect.x,trect.y,trect.width,trect.height*2);
+      };
+    };
+  };
+
   var selx = getMouseTile().x;
   var sely = getMouseTile().y;
 
@@ -256,6 +270,7 @@ function exportLevelDisplay() {
   if (CURRENT_MAP != null) {
     exportcode.innerHTML = '';
     var lines = [];
+    /*
     lines[0]   = `LEVELMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.coli)}");`;
     lines[1]   = `BACKSPRITEMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.sback)}");`;
     lines[2]   = `FORESPRITEMAPS[${CURRENT_LEVEL_ID}] = JSON.parse("${JSON.stringify(CURRENT_MAP.sfore)}");`;
@@ -268,6 +283,17 @@ function exportLevelDisplay() {
     lines[9]   = `  BACKSPRITEMAPS[${CURRENT_LEVEL_ID}],`;
     lines[10]  = `  GRIDSIZE,`;
     lines[11]  = `);`;
+    */
+
+    var obj = JSON.stringify({
+      name: CURRENT_MAP.name,
+      theme: CURRENT_LEVEL_TYPE,
+      coli: JSON.stringify(CURRENT_MAP.coli),
+      sfore: JSON.stringify(CURRENT_MAP.sfore),
+      sback: JSON.stringify(CURRENT_MAP.sback)
+    });
+
+    lines[0]  = `JSONLevel.create(${CURRENT_LEVEL_ID},'${obj}')`;
     //
     for (var i in lines) {
       if (i == 0) {
