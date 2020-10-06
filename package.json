@@ -71,7 +71,7 @@
   },
   "homepage": "https://github.com/gavinhsmith/Un-Named-Platformer-Level-Editor#readme",
   "devDependencies": {
-    "electron": "^8.0.0",
+    "electron": "^8.5.1",
     "electron-builder": "^22.3.2"
   },
   "dependencies": {
